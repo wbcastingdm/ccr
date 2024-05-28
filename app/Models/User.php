@@ -44,4 +44,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relations
+     */
+    public function type()
+    {
+        $this->belongsTo(UserType::class);
+    }
+
+    public function pointsHistory()
+    {
+        $this->hasMany(Point::class, 'user_id');
+    }
 }

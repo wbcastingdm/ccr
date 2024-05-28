@@ -1,0 +1,16 @@
+{
+    "name": "webcasting/club",
+    "description": "customers club with ability to add point and point level",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Webcasting\\Club\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Webcasting"
+        }
+    ],
+    "require": {}
+}

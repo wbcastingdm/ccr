@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Gift;
+use App\Models\Level;
+use App\Models\Point;
 use App\Models\User;
+use App\Models\UserType;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // clear all tables
+        User::truncate();
+        Point::truncate();
+        Level::truncate();
+        UserType::truncate();
+        Gift::truncate();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // call seeders
+        $this->call(UsersTableSeeder::class);
+        $this->call(LevelsTableSeeder::class);
     }
 }
