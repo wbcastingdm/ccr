@@ -1,11 +1,11 @@
 <?php
 
-namespace Webcasting\Club\modelResources;
+namespace Webcasting\Club\Http\ModelResources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PointHistoryResource extends JsonResource
+class LevelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

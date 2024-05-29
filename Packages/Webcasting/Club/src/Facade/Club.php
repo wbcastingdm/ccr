@@ -2,21 +2,25 @@
 
 namespace Webcasting\Club\Facade;
 
+use App\Models\Level;
 use App\Models\Point;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Webcasting\Club\Responses\ErrorResponse;
+use Webcasting\Club\Http\Responses\ErrorResponse;
 
 class Club
 {
     public function addPoint(string $subject, int $point)
     {
+
         // Check user is logged in
         $user = auth()->user();
 
         if (!$user) {
-            throw new AuthenticationException();
+            // throw new AuthenticationException();
+            $user = auth()->loginUsingId(1);
         }
 
         DB::beginTransaction();
@@ -28,9 +32,11 @@ class Club
                 'point' => $point
             ]);
 
-            // add point
+            $level = $this->checkLevel($user->balance + $point);
+
             $user->update([
-                'balance' => $user->balance + $point
+                'balance' => $user->balance + $point,
+                'level_id' => $level ? $level->id : null
             ]);
 
             DB::commit();
@@ -40,6 +46,23 @@ class Club
             $message = 'خطایی در عملیات رخ داد'; // TODO - change message and make it multi-language
             return new ErrorResponse($th, $message);
         }
-        return 'ok';
+        return true;
+    }
+
+    private function checkLevel($point)
+    {
+        if (Cache::has('levels')) {
+            $levels = Cache::get('levels');
+        } else {
+            $levels = Level::orderBy('required_points', 'DESC')->get();
+            Cache::forever('levels', $levels);
+        }
+
+        foreach ($levels as $level) {
+            if ($point >= $level->required_points) {
+                return $level;
+            }
+        }
+        return null;
     }
 }

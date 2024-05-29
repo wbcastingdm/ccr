@@ -1,6 +1,6 @@
 <?php
 
-namespace Webcasting\Club\Responses;
+namespace Webcasting\Club\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response;
