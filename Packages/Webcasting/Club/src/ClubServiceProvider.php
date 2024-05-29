@@ -19,6 +19,10 @@ class ClubServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->bind('club', function () {
+            return new Club();
+        });
+
         $this->publishes([
             __DIR__ . '/config/Club.php' => config_path('Club.php'),
         ]);
