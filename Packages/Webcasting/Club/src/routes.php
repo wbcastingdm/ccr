@@ -5,7 +5,6 @@ use Webcasting\Club\Http\Controllers\LevelController;
 use Webcasting\Club\Http\Controllers\PointController;
 use Webcasting\Club\Facade\ClubFacade;
 
-Route::get('/test', [PointController::class, 'addPoint']);
 Route::get('/addpoint', function () {
     ClubFacade::addPoint('haminjoori ...', 50);
 });
