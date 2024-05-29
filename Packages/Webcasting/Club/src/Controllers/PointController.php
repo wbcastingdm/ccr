@@ -3,11 +3,12 @@
 namespace Webcasting\Club\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Point;
 
 class PointController extends Controller
 {
-    public function addPoint()
+    public function index()
     {
-        return 'ok';
+        return Point::all();
     }
 }

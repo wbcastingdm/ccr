@@ -3,6 +3,7 @@
 namespace Webcasting\Club;
 
 use Illuminate\Support\ServiceProvider;
+use Webcasting\Club\Facade\Club;
 
 class ClubServiceProvider extends ServiceProvider
 {
