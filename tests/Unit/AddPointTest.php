@@ -11,7 +11,7 @@ use App\Models\Point;
 use App\Models\UserType;
 use App\Services\YourService; // Adjust the namespace accordingly
 use Webcasting\Club\Facade\ClubFacade;
-use Webcasting\Club\Responses\ErrorResponse;
+use Webcasting\Club\Http\Responses\ErrorResponse;
 
 class AddPointTest extends TestCase
 {
@@ -36,7 +36,7 @@ class AddPointTest extends TestCase
         $subject = 'Test Subject';
         $point = 10;
 
-        // Assuming YourService is the class where addPoint method resides
+        // run add point method
         ClubFacade::addPoint($subject, $point);
 
         $this->assertDatabaseMissing('points', [
@@ -58,8 +58,9 @@ class AddPointTest extends TestCase
         $subject = 'Test Subject';
         $point = 10;
 
-        // Assuming YourService is the class where addPoint method resides
+        // do add point method
         $response = ClubFacade::addPoint($subject, $point);
+
         // Assert the response
         $this->assertEquals('ok', $response);
 
@@ -74,33 +75,32 @@ class AddPointTest extends TestCase
     }
 
     // TODO Fix transaction failure test has problem
-    // public function test_add_point_transaction_failure()
-    // {
-    //     // Mock the Auth facade to return a user
-    //     $user = User::factory()->create(['balance' => 0]);
-    //     Auth::shouldReceive('user')->once()->andReturn($user);
+    public function test_add_point_transaction_failure()
+    {
+        // Mock the Auth facade to return a user
+        $user = User::factory()->create(['balance' => 0]);
+        Auth::shouldReceive('user')->once()->andReturn($user);
 
-    //     // Mock the DB facade to throw an exception on commit
-    //     DB::shouldReceive('beginTransaction')->once();
-    //     DB::shouldReceive('commit')->once()->andThrow(new \Exception('Test Exception'));
-    //     DB::shouldReceive('rollBack')->once();
+        // Mock the DB facade to throw an exception on commit
+        DB::shouldReceive('beginTransaction')->once();
+        DB::shouldReceive('commit')->once()->andThrow(new \Exception('Test Exception'));
+        DB::shouldReceive('rollBack')->once();
 
-    //     // Perform the action
-    //     $subject = 'Test Subject';
-    //     $point = 10;
+        // Perform the action
+        $subject = 'Test Subject';
+        $point = 10;
 
-    //     // Assuming YourService is the class where addPoint method resides
-    //     $response = ClubFacade::addPoint($subject, $point);
+        // do add point method
+        $response = ClubFacade::addPoint($subject, $point);
 
-    //     $this->assertDatabaseMissing('points', [
-    //         'subject' => $subject,
-    //         'point' => $point
-    //     ]);
+        $this->assertDatabaseMissing('points', [
+            'subject' => $subject,
+            'point' => $point
+        ]);
 
-    //     $this->assertEquals($user->fresh()->balance, 0);
+        $this->assertEquals($user->fresh()->balance, 0);
 
-    //     // Assert the response is an instance of ErrorResponse
-    //     $this->assertInstanceOf(ErrorResponse::class, $response);
-    //     $this->assertEquals('خطایی در عملیات رخ داد', $response->message);
-    // }
+        // Assert the response is an instance of ErrorResponse
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+    }
 }

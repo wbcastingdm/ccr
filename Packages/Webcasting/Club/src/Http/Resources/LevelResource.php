@@ -1,6 +1,6 @@
 <?php
 
-namespace Webcasting\Club\Http\ModelResources;
+namespace Webcasting\Club\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -5,7 +5,7 @@ namespace Webcasting\Club\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Level;
 use Illuminate\Support\Facades\Cache;
-use Webcasting\Club\Http\ModelResources\LevelResource;
+use Webcasting\Club\Http\Resources\LevelResource;
 use Webcasting\Club\Http\Requests\Level\StoreLevelRequest;
 use Webcasting\Club\Http\Requests\Level\UpdateLevelRequest;
 use Webcasting\Club\Http\Responses\ErrorResponse;

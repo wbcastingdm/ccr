@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Webcasting\Club\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Gift;
 use Illuminate\Http\Request;
+use Webcasting\Club\Http\Requests\Gift\StoreGiftRequest;
+use Webcasting\Club\Http\Requests\Gift\UpdateGiftRequest;
+use Webcasting\Club\Http\Resources\GiftResource;
 
 class GiftController extends Controller
 {
@@ -12,23 +16,15 @@ class GiftController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $gifts = Gift::all();
+        return new GiftResource($gifts);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGiftRequest $request)
     {
-        //
     }
 
     /**
@@ -50,7 +46,7 @@ class GiftController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gift $gift)
+    public function update(UpdateGiftRequest $request, Gift $gift)
     {
         //
     }
