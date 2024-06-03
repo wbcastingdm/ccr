@@ -11,7 +11,8 @@ class Point extends Model
 
     protected $fillable = [
         'subject',
-        'point'
+        'point',
+        'user_id'
     ];
 
     /**

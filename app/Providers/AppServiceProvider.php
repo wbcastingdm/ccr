@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Facade\Club;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Add Club Facade
+        $this->app->bind('club', function () {
+            return new Club();
+        });
+
         Schema::defaultStringLength(191);
     }
 }

@@ -17,47 +17,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'phone',
         'balance',
         'level_id',
         'type_id'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    /**
      * Relations
      */
-    public function type()
-    {
-        $this->belongsTo(UserType::class);
-    }
 
     public function pointsHistory()
     {
-        $this->hasMany(Point::class, 'user_id');
+        return $this->hasMany(Point::class, 'user_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Point::class);
     }
 }

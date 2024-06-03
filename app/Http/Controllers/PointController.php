@@ -2,64 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Facade\ClubFacade;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Point\StorePointRequest;
+use App\Http\Resources\PointHistoryResource;
+use App\Http\Responses\ErrorResponse;
 use App\Models\Point;
-use Illuminate\Http\Request;
 
 class PointController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return PointHistoryResource::collection(Point::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StorePointRequest $request)
     {
-        //
+        return ClubFacade::addPoint($request->phone, $request->type_id, $request->subject, $request->point);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function getPoint($phone)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Point $point)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Point $point)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Point $point)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Point $point)
-    {
-        //
     }
 }

@@ -9,9 +9,17 @@ class Level extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'name',
         'required_points'
     ];
+
+    /**
+     * Relations
+     */
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

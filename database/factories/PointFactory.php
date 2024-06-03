@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class PointFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'subject' => $this->faker->text(),
+            'user_id' => User::factory(),
+            'point' => $this->faker->numberBetween(10, 100)
         ];
     }
 }
